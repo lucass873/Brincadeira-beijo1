@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Uma pergunta muito importante... ❤️">
+
+    <meta name="theme-color"
+          content="#ff4d6d">
+
+    <title>Uma pergunta para você ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #ffccd5,
+                    #ff758f 45%,
+                    #ff4d6d
+                );
+        }
+
+        .card {
+            position: relative;
+
+            width: min(90%, 430px);
+            min-height: 360px;
+
+            padding: 40px 25px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            background: rgba(255,255,255,0.96);
+
+            border-radius: 30px;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.20);
+
+            z-index: 10;
+        }
+
+        .emoji {
+            font-size: 55px;
+            margin-bottom: 10px;
+
+            animation:
+                pulsar 1.5s infinite;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+
+            color: #ff416c;
+
+            font-size: clamp(25px, 7vw, 34px);
+        }
+
+        #texto {
+            margin: 0 0 30px;
+
+            color: #777;
+
+            font-size: 17px;
+        }
+
+        .area-botoes {
+            position: relative;
+
+            width: 100%;
+            height: 130px;
+        }
+
+        button {
+            border: 0;
+            outline: 0;
+
+            padding: 14px 25px;
+
+            border-radius: 15px;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            -webkit-tap-highlight-color:
+                transparent;
+
+            user-select: none;
+
+            transition:
+                transform .2s ease,
+                left .18s ease,
+                top .18s ease;
+        }
+
+        #sim {
+            position: absolute;
+
+            left: 10%;
+            top: 15px;
+
+            background: #ff416c;
+            color: white;
+
+            box-shadow:
+                0 7px 18px
+                rgba(255,65,108,.35);
+
+            z-index: 2;
+        }
+
+        #sim:hover {
+            transform: scale(1.08);
+        }
+
+        #nao {
+            position: absolute;
+
+            left: 58%;
+            top: 15px;
+
+            background: #e5e5e5;
+            color: #333;
+
+            z-index: 3;
+        }
+
+        #mensagem {
+            display: none;
+
+            margin-top: 5px;
+
+            color: #ff416c;
+
+            font-size: 22px;
+            font-weight: bold;
+
+            animation:
+                aparecer .6s ease;
+        }
+
+        .submensagem {
+            display: none;
+
+            margin-top: 10px;
+
+            color: #777;
+
+            font-size: 15px;
+        }
+
+        .coracao {
+            position: fixed;
+
+            bottom: -40px;
+
+            font-size:
+                calc(20px + 2vw);
+
+            pointer-events: none;
+
+            z-index: 20;
+
+            animation:
+                subir 4s linear forwards;
+        }
+
+        @keyframes pulsar {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: scale(.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes subir {
+            0% {
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+
+                opacity: 1;
+            }
+
+            100% {
+                transform:
+                    translateY(-120vh)
+                    rotate(360deg);
+
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .card {
+                padding: 30px 18px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            button {
+                padding:
+                    12px 20px;
+
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="card">
+
+        <div class="emoji">
+            💋
+        </div>
+
+        <h1>
+            Posso te dar um beijo?
+        </h1>
+
+        <p id="texto">
+            Escolha uma opção... 👀❤️
+        </p>
+
+        <div class="area-botoes">
+
+            <button
+                id="sim"
+                type="button">
+                Sim ❤️
+            </button>
+
+            <button
+                id="nao"
+                type="button">
+                Não 😢
+            </button>
+
+        </div>
+
+        <div id="mensagem">
+            Sabia que você ia dizer sim! 😍❤️
+        </div>
+
+        <div class="submensagem"
+             id="submensagem">
+            Agora não adianta fugir... 😏
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const sim =
+            document.getElementById("sim");
+
+        const nao =
+            document.getElementById("nao");
+
+        const texto =
+            document.getElementById("texto");
+
+        const mensagem =
+            document.getElementById("mensagem");
+
+        const submensagem =
+            document.getElementById("submensagem");
+
+        const area =
+            document.querySelector(".area-botoes");
+
+
+        let tentativas = 0;
+
+
+        function fugir() {
+
+            tentativas++;
+
+
+            /*
+             * Faz o botão SIM crescer
+             * conforme a pessoa tenta
+             * clicar no NÃO.
+             */
+
+            let tamanho =
+                18 + tentativas * 2;
+
+            if (tamanho > 38) {
+                tamanho = 38;
+            }
+
+            sim.style.fontSize =
+                tamanho + "px";
+
+
+            /*
+             * Mensagens diferentes
+             * durante a brincadeira.
+             */
+
+            if (tentativas === 1) {
+
+                texto.textContent =
+                    "Tem certeza? 👀";
+
+            }
+
+            else if (tentativas === 2) {
+
+                texto.textContent =
+                    "O botão NÃO está fugindo! 😂";
+
+            }
+
+            else if (tentativas === 3) {
+
+                texto.textContent =
+                    "Você ainda está tentando? 😏";
+
+            }
+
+            else if (tentativas === 4) {
+
+                texto.textContent =
+                    "Desiste do NÃO! 😂❤️";
+
+            }
+
+            else if (tentativas >= 5) {
+
+                texto.textContent =
+                    "Aceita logo o SIM! 😍";
+
+            }
+
+
+            /*
+             * Calcula uma nova posição
+             * para o botão NÃO.
+             */
+
+            const limiteX =
+                area.clientWidth -
+                nao.offsetWidth;
+
+            const limiteY =
+                area.clientHeight -
+                nao.offsetHeight;
+
+
+            const x =
+                Math.random() *
+                Math.max(limiteX, 0);
+
+            const y =
+                Math.random() *
+                Math.max(limiteY, 0);
+
+
+            nao.style.left =
+                x + "px";
+
+            nao.style.top =
+                y + "px";
+        }
+
+
+        /*
+         * Computador:
+         * o botão foge quando
+         * o mouse chega perto.
+         */
+
+        nao.addEventListener(
+            "mouseenter",
+            fugir
+        );
+
+
+        /*
+         * Celular:
+         * foge quando a pessoa
+         * tenta tocar.
+         */
+
+        nao.addEventListener(
+            "touchstart",
+            function(event) {
+
+                event.preventDefault();
+
+                fugir();
+            },
+            { passive: false }
+        );
+
+
+        /*
+         * Caso a pessoa consiga
+         * clicar no botão.
+         */
+
+        nao.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+                fugir();
+            }
+        );
+
+
+        /*
+         * Quando clicar em SIM.
+         */
+
+        sim.addEventListener(
+            "click",
+            function() {
+
+                nao.style.display =
+                    "none";
+
+                sim.style.display =
+                    "none";
+
+                texto.style.display =
+                    "none";
+
+                mensagem.style.display =
+                    "block";
+
+                submensagem.style.display =
+                    "block";
+
+                criarCoracoes();
+            }
+        );
+
+
+        /*
+         * Cria vários corações
+         * subindo pela tela.
+         */
+
+        function criarCoracoes() {
+
+            for (
+                let i = 0;
+                i < 35;
+                i++
+            ) {
+
+                const coracao =
+                    document.createElement("div");
+
+
+                coracao.className =
+                    "coracao";
+
+
+                coracao.textContent =
+                    Math.random() > 0.5
+                    ? "❤️"
+                    : "💖";
+
+
+                coracao.style.left =
+                    Math.random() * 100 +
+                    "vw";
+
+
+                coracao.style.animationDuration =
+                    (2 + Math.random() * 3) +
+                    "s";
+
+
+                coracao.style.animationDelay =
+                    Math.random() * 1.5 +
+                    "s";
+
+
+                document.body.appendChild(
+                    coracao
+                );
+
+
+                setTimeout(
+                    () => coracao.remove(),
+                    6000
+                );
+            }
+        }
+
+    </script>
+
+</body>
+</html>
